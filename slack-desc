@@ -1,0 +1,11 @@
+libdc1394: libdc1394 (A high level API for IEEE 1394 digital cameras)
+libdc1394:
+libdc1394: libdc1394 is a library that provides a high level programming
+libdc1394: interface for application developers who wish to control
+libdc1394: IEEE 1394 based cameras that conform to the 1394-based Digital
+libdc1394: Camera Specifications (also known as the IIDC or DCAM
+libdc1394: Specifications).
+libdc1394:
+libdc1394:
+libdc1394: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
+libdc1394:
