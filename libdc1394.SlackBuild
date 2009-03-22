@@ -7,8 +7,8 @@
 . ../slack-package.conf
 
 NAME=libdc1394
-VERSION=1.2.2
-BUILD=2
+VERSION=2.1.0
+BUILD=1
 
 cd $TMP
 tar -zxvf $CWD/$NAME-$VERSION.tar.gz
@@ -26,17 +26,17 @@ CXXFLAGS=$SLKCFLAGS \
             --enable-static=no \
             --enable-doxygen-dot \
             --enable-doxygen-man \
+            --enable-doxygen-html \
+            --enable-doxygen-pdf || exit 1
 #           --enable-doxygen-chm \ # missing hhc utility
 #           --enable-doxygen-chi \ # missing hhc utility
-            --enable-doxygen-html \
-            --enable-doxygen-pdf
 
-make -j4 || exit 1 
+make -j4 || exit 1
 
 PKG="$TMP/package-$NAME"
 mkdir -p $PKG
 
-make DESTDIR=$PKG install || exit 2
+make DESTDIR=$PKG install || exit 3
 
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
