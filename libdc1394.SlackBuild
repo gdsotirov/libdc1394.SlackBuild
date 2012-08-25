@@ -1,14 +1,29 @@
 #!/bin/sh
 #
-# SlackBuild for libdc1394
-# Written by Georgi D. Sotirov <gdsotirov@dir.bg>
-# Visit SlackPack at http://sotirov-bg.net/slackpack/
+# Slackware build script for LibDC1394
+# Copyright (C) 2007-2010, 2012 Georgi D. Sotirov <gdsotirov@dir.bg>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# 
+# $Id: libdc1394.SlackBuild,v 1.6 2012/08/25 12:27:14 gsotirov Exp $
 #
 
-. ../slack-package.conf
+. ../../slack-package.conf
 
 NAME=libdc1394
-VERSION=2.1.2
+VERSION=2.1.4
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -43,10 +58,13 @@ CXXFLAGS=$SLKCFLAGS \
 ./configure --build=$ARCH-slackware-linux \
             --host=$ARCH-slackware-linux \
             --prefix=/usr \
+            --docdir=/usr/doc/$NAME-$VERSION \
             --mandir=/usr/man \
             --enable-shared=yes \
             --enable-static=no \
             --enable-doxygen-man \
+            --enable-doxygen-dot \
+            --enable-doxygen-html \
             --enable-doxygen-pdf || exit 1
 
 # Build & install
@@ -57,6 +75,10 @@ make DESTDIR=$PKG install || exit 3
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
 ( cd $SRC; create_docs $PKG $NAME-$VERSION )
+# Install documentation manually
+install -m 644 $SRC/doc/$NAME.pdf $PKG/usr/doc/$NAME-$VERSION/$NAME.pdf
+install -d -m 755 $PKG/usr/doc/$NAME-$VERSION/html
+install -m 644 $SRC/doc/html/* $PKG/usr/doc/$NAME-$VERSION/html/
 gzip_man $PKG
 
 mkdir -p $PKG/install
