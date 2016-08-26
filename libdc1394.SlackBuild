@@ -7,8 +7,8 @@
 . ../../slack-package.conf
 
 NAME=libdc1394
-VERSION=2.1.2
-BUILD=1
+VERSION=1.2.2
+BUILD=${BUILD:=1}
 
 TMP=${TMP:-/tmp}
 CWD=${CWD:-`pwd`}
